@@ -1,0 +1,41 @@
+From dfa6dba41c9ce67cd57957cc41330ccd87a7be60 Mon Sep 17 00:00:00 2001
+From: subhagamer <lordkazuya1@gmail.com>
+Date: Thu, 9 May 2024 10:10:48 +0530
+Subject: [PATCH] BatteryEventFramework: Set proper wattage calculation in
+ lockscreen and set charging status
+
+---
+ .../android/settingslib/fuelgauge/BatteryStatus.java   | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/packages/SettingsLib/src/com/android/settingslib/fuelgauge/BatteryStatus.java b/packages/SettingsLib/src/com/android/settingslib/fuelgauge/BatteryStatus.java
+index 5ecc22979b8c..e6463892ffe9 100644
+--- a/packages/SettingsLib/src/com/android/settingslib/fuelgauge/BatteryStatus.java
++++ b/packages/SettingsLib/src/com/android/settingslib/fuelgauge/BatteryStatus.java
+@@ -107,8 +107,8 @@ public class BatteryStatus {
+         this.incompatibleCharger = incompatibleCharger;
+ 
+         final int maxChargingMicroAmp =
+-                batteryChangedIntent.getIntExtra(EXTRA_MAX_CHARGING_CURRENT, -1);
+-        int maxChargingMicroVolt = batteryChangedIntent.getIntExtra(EXTRA_MAX_CHARGING_VOLTAGE, -1);
++                batteryChangedIntent.getIntExtra(EXTRA_MAX_CHARGING_CURRENT, -1) * 1000;
++        int maxChargingMicroVolt = batteryChangedIntent.getIntExtra(EXTRA_MAX_CHARGING_VOLTAGE, -1) * 1000;
+ 
+         if (maxChargingMicroVolt <= 0) {
+             maxChargingMicroVolt = DEFAULT_CHARGING_VOLTAGE_MICRO_VOLT;
+@@ -167,10 +167,8 @@ public class BatteryStatus {
+         if (oemFastChargeStatus) {
+             return CHARGING_FAST;
+         }
+-        final int slowThreshold = context.getResources().getInteger(
+-                R.integer.config_chargingSlowlyThreshold);
+-        final int fastThreshold = context.getResources().getInteger(
+-                R.integer.config_chargingFastThreshold);
++        final int slowThreshold = 5;
++        final int fastThreshold = 12;
+         return maxChargingWattage <= 0 ? CHARGING_UNKNOWN :
+                 maxChargingWattage < slowThreshold ? CHARGING_SLOWLY :
+                         maxChargingWattage > fastThreshold ? CHARGING_FAST :
+-- 
+2.34.1
+
