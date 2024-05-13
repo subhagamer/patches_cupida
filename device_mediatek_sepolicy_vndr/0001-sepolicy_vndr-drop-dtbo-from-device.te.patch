@@ -1,0 +1,25 @@
+From 35009f07f114f17548300c1cf43c7276f8593230 Mon Sep 17 00:00:00 2001
+From: subhagamer <lordkazuya1@gmail.com>
+Date: Mon, 13 May 2024 20:53:51 +0530
+Subject: [PATCH] sepolicy_vndr: drop dtbo from device.te
+
+---
+ basic/non_plat/device.te | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/basic/non_plat/device.te b/basic/non_plat/device.te
+index 88447c2..193d6ac 100644
+--- a/basic/non_plat/device.te
++++ b/basic/non_plat/device.te
+@@ -236,7 +236,7 @@ type bootdevice_block_device, dev_type;
+ type odm_block_device, dev_type;
+ type oem_block_device, dev_type;
+ type vendor_block_device, dev_type;
+-type dtbo_block_device, dev_type;
++#type dtbo_block_device, dev_type;
+ type loader_ext_block_device, dev_type;
+ type spm_device, dev_type;
+ type persist_block_device, dev_type;
+-- 
+2.34.1
+
