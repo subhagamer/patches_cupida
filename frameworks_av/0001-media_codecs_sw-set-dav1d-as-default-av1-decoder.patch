@@ -1,0 +1,34 @@
+From d5c4d861bf1b89cfccc38de01c3745f493465b1f Mon Sep 17 00:00:00 2001
+From: subhagamer <lordkazuya1@gmail.com>
+Date: Mon, 13 May 2024 17:17:17 +0530
+Subject: [PATCH] media_codecs_sw: set dav1d as default av1 decoder
+
+---
+ media/libstagefright/data/media_codecs_sw.xml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/media/libstagefright/data/media_codecs_sw.xml b/media/libstagefright/data/media_codecs_sw.xml
+index ee41867..e8e5932 100644
+--- a/media/libstagefright/data/media_codecs_sw.xml
++++ b/media/libstagefright/data/media_codecs_sw.xml
+@@ -199,7 +199,7 @@
+             <Feature name="adaptive-playback" />
+             <Attribute name="software-codec" />
+         </MediaCodec>
+-        <MediaCodec name="c2.android.av1.decoder" type="video/av01" variant="slow-cpu,!slow-cpu">
++        <MediaCodec name="c2.android.av1.decoder" type="video/av01" variant="slow-cpu,!slow-cpu" rank="1024">
+             <!-- TODO: implement a mechanism to prevent AV1 Decoder usage on pre-U devices -->
+             <Limit name="alignment" value="1x1" />
+             <Limit name="block-size" value="16x16" />
+@@ -218,7 +218,7 @@
+             <Feature name="adaptive-playback" />
+             <Attribute name="software-codec" />
+         </MediaCodec>
+-        <MediaCodec name="c2.android.av1-dav1d.decoder" type="video/av01" variant="slow-cpu,!slow-cpu" rank="1024">
++        <MediaCodec name="c2.android.av1-dav1d.decoder" type="video/av01" variant="slow-cpu,!slow-cpu">
+             <Limit name="alignment" value="1x1" />
+             <Limit name="block-size" value="16x16" />
+             <Variant name="!slow-cpu">
+-- 
+2.34.1
+
