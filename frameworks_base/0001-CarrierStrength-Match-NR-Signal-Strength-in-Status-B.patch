@@ -1,0 +1,31 @@
+From b4999b6ec3e0b023b01868e0e1275e150cabeda3 Mon Sep 17 00:00:00 2001
+From: subhagamer <lordkazuya1@gmail.com>
+Date: Thu, 9 May 2024 09:47:49 +0530
+Subject: [PATCH] CarrierStrength: Match NR Signal Strength in Status Bar UI to
+ be the same as ColorOS
+
+Signed-off-by: subhagamer <lordkazuya1@gmail.com>
+---
+ telephony/java/android/telephony/CellSignalStrengthNr.java | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/telephony/java/android/telephony/CellSignalStrengthNr.java b/telephony/java/android/telephony/CellSignalStrengthNr.java
+index 03519a364a36..1954a08151f7 100644
+--- a/telephony/java/android/telephony/CellSignalStrengthNr.java
++++ b/telephony/java/android/telephony/CellSignalStrengthNr.java
+@@ -456,6 +456,12 @@ public final class CellSignalStrengthNr extends CellSignalStrength implements Pa
+         }
+         // Apply the smaller value among three levels of three measures.
+         mLevel = Math.min(Math.min(ssRsrpLevel, ssRsrqLevel), ssSinrLevel);
++	if(mLevel<1)
++		mLevel=2;
++	else if(mLevel>=1 && mLevel<=2)
++		mLevel=3;
++	else if(mLevel>2)
++		mLevel=4;
+     }
+ 
+     /**
+-- 
+2.34.1
+
